@@ -1,56 +1,169 @@
 .container {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    grid-auto-rows: 110px;
-    gap: 10px;
+    grid-auto-rows: 120px;
+    gap: 14px;
     min-height: 100vh;
+}
+
+@keyframes project-skills-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-50% - 4px));
+    }
 }
 
 .titleContainer {
     display: flex;
     flex-direction: column;
+    gap: 10px;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
     height: 100%;
     overflow: hidden;
 
     .title {
         color: var(--block-title);
-        font-size: 0.8rem;
-        font-weight: 400;
+        font-size: var(--type-fs-label);
+        font-weight: var(--type-w-regular);
+        text-transform: uppercase;
+        letter-spacing: var(--type-tracking-label);
     }
 
-    .skills {
+    .skillsViewport {
+        width: 100%;
+        padding-top: 2px;
+        overflow: hidden;
+    }
+
+    .skillsTrack {
         display: flex;
-        animation: scroll calc(var(--skills-count) * 1s) linear infinite;
+        width: max-content;
+        animation: project-skills-scroll max(calc(var(--skills-count) * 2.2s), 22s) linear infinite;
         will-change: transform;
+    }
 
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
+    .skillsGroup {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        padding-right: 8px;
     }
 
     .skillLink {
-        display: block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 36px;
         margin-right: 8px;
-        padding: 2px 8px;
-        color: var(--contrast-color);
-        font-size: 0.8rem;
+        padding: 4px 12px;
+        color: var(--chip-text);
+        font-size: var(--type-fs-caption);
         text-decoration: none;
         white-space: nowrap;
-        background-color: var(--brand-color);
-        border-radius: 10px;
+        line-height: 1;
+        translate: 0 0;
+        letter-spacing: var(--type-tracking-label);
+        background-color: var(--chip-bg);
+        border: 1px solid var(--chip-border);
+        border-radius: 999px;
+        transition: opacity var(--motion-fast), color var(--motion-fast), background-color var(--motion-fast), border-color var(--motion-fast), transform var(--motion-fast);
         cursor: pointer;
 
         &:hover {
-            opacity: 0.9;
+            color: var(--chip-text-hover);
+            background-color: var(--chip-bg-hover);
+            border-color: transparent;
+            opacity: var(--state-hover-opacity);
+            transform: translateY(var(--state-hover-translate-y));
         }
+
+        &:active {
+            opacity: var(--state-hover-opacity);
+            transform: translateY(0);
+        }
+    }
+}
+
+@media (max-width: 1199.99px) {
+    .container {
+        gap: 12px;
+        min-height: auto;
+    }
+
+    .titleContainer {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 767.99px) {
+    .container {
+        grid-auto-rows: 104px;
+        gap: 10px;
+    }
+
+    .titleContainer {
+        gap: 6px;
+    }
+
+    .titleContainer .skillsViewport {
+        padding-top: 1px;
+        padding-bottom: 2px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .titleContainer .skillsViewport::-webkit-scrollbar {
+        display: none;
+    }
+
+    .titleContainer .skillsTrack {
+        width: auto;
+        animation: none;
+    }
+
+    .titleContainer .skillsGroup[aria-hidden='true'] {
+        display: none;
+    }
+
+    .titleContainer .skillLink {
+        flex: 0 0 auto;
+        min-height: 40px;
+        margin-right: 6px;
+        padding: 4px 10px;
+    }
+}
+
+@media (max-width: 389.99px) {
+    .container {
+        grid-auto-rows: 96px;
+        gap: 8px;
+    }
+
+    .titleContainer {
+        gap: 5px;
+    }
+
+    .titleContainer .title {
+        font-size: var(--type-fs-micro);
+    }
+
+    .titleContainer .skillsViewport {
+        width: calc(100% + 6px);
+        margin-right: -6px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+
+    .titleContainer .skillLink {
+        min-height: 44px;
+        margin-right: 5px;
+        padding: 6px 10px;
+        font-size: var(--type-fs-label);
     }
 }

@@ -1,266 +1,114 @@
 .container {
-    max-width: 800px;
+    max-width: 980px;
     margin: 0 auto;
     padding: 2rem 1rem 4rem;
 }
 
-.terminal {
-    overflow: hidden;
-    font-family: "Fira Code", "JetBrains Mono", Monaco, Consolas, monospace;
-    font-size: 0.85rem;
-    line-height: 1.6;
-    background-color: var(--console-bg);
-    border: 1px solid var(--terminal-border);
+.showcase {
+    padding: 4px 0 0;
+}
+
+.hero {
+    margin-bottom: 20px;
+}
+
+.heroTitle {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--type-fs-hero);
+    font-weight: var(--type-w-semibold);
+    line-height: var(--type-lh-tight);
+    letter-spacing: var(--type-tracking-display);
+}
+
+.heroSubtitle {
+    margin: 10px 0 0;
+    color: var(--block-title);
+    font-size: var(--type-fs-body-lg);
+    line-height: var(--type-lh-body);
+    letter-spacing: var(--type-tracking-body);
+}
+
+.groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.groupCard {
+    padding: 16px;
+    background: linear-gradient(160deg, var(--glass-highlight), transparent 52%), var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
     border-radius: 10px;
-    box-shadow: 0 4px 24px var(--terminal-shadow);
 }
 
-.terminalHeader {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    padding: 10px 14px;
-    background-color: var(--console-header-bg);
-    border-bottom: 1px solid var(--terminal-header-border);
+.groupTitle {
+    margin: 0 0 10px;
+    color: var(--block-title);
+    font-size: var(--type-fs-label);
+    font-weight: var(--type-w-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--type-tracking-label);
 }
 
-.terminalDot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-
-    &:nth-child(1) {
-        background-color: #ff5f57;
-    }
-
-    &:nth-child(2) {
-        background-color: #febc2e;
-    }
-
-    &:nth-child(3) {
-        background-color: #28c840;
-    }
-}
-
-.terminalTitle {
-    margin-left: 8px;
-    color: var(--terminal-muted);
-    font-size: 0.75rem;
-}
-
-.terminalContent {
-    padding: 16px 18px 20px;
-    overflow-x: auto;
-}
-
-.promptLine {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.prompt {
-    color: var(--terminal-prompt);
-    font-weight: 500;
-}
-
-.promptDesktop {
-    display: inline;
-}
-
-.promptMobile {
-    display: none;
-}
-
-.cursor {
-    color: var(--terminal-text);
-    animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-}
-
-.lsOutput {
-    margin-bottom: 16px;
-}
-
-.lsOutputCompact {
-    display: block;
-}
-
-.lsLine {
+.skillChips {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px 0.5em;
-    align-items: baseline;
-    margin-bottom: 2px;
+    gap: 8px;
 }
 
-.lsTotal {
-    color: var(--terminal-muted);
-}
-
-.lsPerms {
-    flex-shrink: 0;
-    width: 5.5rem;
-    color: var(--terminal-hash);
-}
-
-.lsMeta {
-    flex-shrink: 0;
-    width: 9.2rem;
-    color: var(--terminal-muted);
-}
-
-.lsSize {
-    display: block;
-    flex-shrink: 0;
-    width: 2.5rem;
-    color: var(--terminal-muted);
-    text-align: right;
-}
-
-.lsDate {
-    flex-shrink: 0;
-    width: 6.5rem;
-    color: var(--terminal-muted);
-}
-
-.lsName {
-    color: var(--console-tab-text);
-}
-
-.lsDirName {
-    color: var(--terminal-dir-name);
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-    cursor: pointer;
-
-    &:hover {
-        opacity: 0.85;
-    }
-}
-
-.lsOutputRoot .lsDirName {
-    color: var(--terminal-dir-name-first);
-}
-
-.lsFileLink {
+.skillChip {
     display: inline-flex;
     gap: 6px;
     align-items: center;
-    color: var(--console-tab-text);
+    justify-content: center;
+    padding: 5px 12px;
+    color: var(--chip-text);
+    font-size: var(--type-fs-caption);
     text-decoration: none;
-    transition: color 0.2s ease;
-
-    &:hover {
-        color: var(--terminal-dir-name);
-        text-decoration: underline;
-    }
+    line-height: 1;
+    translate: 0 var(--type-optical-shift);
+    letter-spacing: var(--type-tracking-label);
+    background: var(--chip-bg);
+    border: 1px solid var(--chip-border);
+    border-radius: 999px;
+    transition: transform var(--motion-fast), color var(--motion-fast), background-color var(--motion-fast), border-color var(--motion-fast);
 }
 
-.skillIcon {
+.skillChipIcon {
     flex-shrink: 0;
 }
 
-.skillIconWhite {
-    filter: brightness(0) invert(1);
-
-    [data-theme='light'] & {
-        filter: none;
-    }
+.skillChip:hover {
+    color: var(--chip-text-hover);
+    background: var(--chip-bg-hover);
+    border-color: transparent;
+    transform: translateY(var(--state-hover-translate-y));
 }
 
-.folderBlock {
-    margin-bottom: 20px;
-    scroll-margin-top: 1rem;
+.skillChipIconWhite {
+    filter: brightness(0) invert(1);
+}
+
+.footerHint {
+    margin-top: 14px;
+    color: var(--block-title);
+    font-size: var(--type-fs-caption);
+    letter-spacing: var(--type-tracking-body);
 }
 
 @media (max-width: 767.99px) {
-    .promptDesktop {
-        display: none;
+    .showcase {
+        padding: 0;
     }
 
-    .promptMobile {
-        display: inline;
-    }
-
-    .lsOutputCompact {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 8px 16px;
-        margin-bottom: 16px;
-    }
-
-    .lsOutputCompact .lsLine {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 0;
-        margin-bottom: 0;
-    }
-
-    .lsOutputCompact .lsLine:nth-child(1),
-    .lsOutputCompact .lsLine:nth-child(2),
-    .lsOutputCompact .lsLine:nth-child(3) {
-        display: none;
-    }
-
-    .lsOutputCompact .lsTotal,
-    .lsOutputCompact .lsPerms,
-    .lsOutputCompact .lsMeta,
-    .lsOutputCompact .lsSize,
-    .lsOutputCompact .lsDate {
-        display: none;
-    }
-
-    .lsOutputCompact .lsDirName,
-    .lsOutputCompact .lsName,
-    .lsOutputCompact .lsFileLink {
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .lsOutputCompact .lsFileLink {
-        gap: 4px;
-    }
-
-    .lsOutputCompact .skillIcon {
-        width: 16px;
-        height: 16px;
+    .groups {
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 575.99px) {
     .container {
         padding: 1rem 0.75rem 3rem;
-    }
-
-    .terminalContent {
-        padding: 12px 14px 16px;
-    }
-
-    .terminal {
-        font-size: 0.8rem;
-    }
-
-    .lsPerms {
-        width: 5rem;
-    }
-
-    .lsMeta {
-        width: 6.5rem;
-    }
-
-    .lsDate {
-        width: 6rem;
-    }
-
-    .lsOutputCompact {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 6px 12px;
     }
 }

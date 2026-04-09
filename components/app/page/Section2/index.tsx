@@ -2,6 +2,7 @@ import React from 'react';
 
 import Block from '@/components/shared/Block';
 
+import { HOME_GRID_COLUMNS, HOME_GRID_ROWS } from '../layoutGrid';
 import Experience from './Experience';
 import GitHubIcon from './GitHubIcon';
 import LinkedInIcon from './LinkedInIcon';
@@ -14,9 +15,7 @@ export default function Section2(): React.ReactNode {
             {/* LinkedIn */}
             <Block
                 column={{
-                    default: '1 / span 1',
-                    xl: '1 / span 1',
-                    lg: '3 / span 2'
+                    ...HOME_GRID_COLUMNS.section2.linkedIn
                 }}
                 row={{
                     default: '4 / span 1',
@@ -30,9 +29,7 @@ export default function Section2(): React.ReactNode {
             {/* Email */}
             <Block
                 column={{
-                    default: '1 / span 1',
-                    xl: '1 / span 1',
-                    lg: '5 / span 2'
+                    ...HOME_GRID_COLUMNS.section2.mail
                 }}
                 row={{
                     default: '5 / span 1',
@@ -46,9 +43,7 @@ export default function Section2(): React.ReactNode {
             {/* GitHub */}
             <Block
                 column={{
-                    default: '1 / span 1',
-                    xl: '1 / span 1',
-                    lg: '7 / span 2'
+                    ...HOME_GRID_COLUMNS.section2.gitHub
                 }}
                 row={{
                     default: '6 / span 1',
@@ -62,14 +57,10 @@ export default function Section2(): React.ReactNode {
             {/* Skills Tree */}
             <Block
                 column={{
-                    default: '2 / span 3',
-                    xl: '2 / span 3',
-                    lg: '1 / span 8'
+                    ...HOME_GRID_COLUMNS.section2.skillsTree
                 }}
                 row={{
-                    default: '4 / span 3',
-                    xl: '4 / span 3',
-                    lg: '8 / span 2'
+                    ...HOME_GRID_ROWS.section2.skillsTree
                 }}
                 noPadding
             >
@@ -79,14 +70,10 @@ export default function Section2(): React.ReactNode {
             {/* Career Experience */}
             <Block
                 column={{
-                    default: '5 / span 4',
-                    xl: '5 / span 4',
-                    lg: '1 / span 8'
+                    ...HOME_GRID_COLUMNS.section2.experience
                 }}
                 row={{
-                    default: '4 / span 4',
-                    xl: '4 / span 4',
-                    lg: '10 / span 4'
+                    ...HOME_GRID_ROWS.section2.experience
                 }}
             >
                 <Experience />

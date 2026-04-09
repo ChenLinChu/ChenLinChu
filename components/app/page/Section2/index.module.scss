@@ -4,6 +4,6 @@
     cursor: pointer;
 
     &:hover {
-        color: #000;
+        color: var(--interactive-link);
     }
 }

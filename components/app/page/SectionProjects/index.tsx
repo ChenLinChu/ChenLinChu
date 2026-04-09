@@ -1,12 +1,19 @@
 import React from 'react';
 
+import {
+    getAlternatingProjectColumn,
+    HOME_GRID_COLUMNS,
+    HOME_GRID_ROWS
+} from '@/components/app/page/layoutGrid';
 import Block from '@/components/shared/Block';
 import ProjectContainer from '@/components/shared/ProjectContainer';
 import { getProjectsByLanguage } from '@/lib/queries/projects';
 
-export default async function SectionProjects(
-    { params }: { params: Promise<{ locale: string; }> }
-): Promise<React.ReactNode> {
+export default async function SectionProjects({
+    params
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<React.ReactNode> {
     const { locale } = await params;
     const projects = await getProjectsByLanguage(locale);
 
@@ -17,14 +24,27 @@ export default async function SectionProjects(
                     key={index}
                     noPadding
                     column={{
-                        default: `${index % 2 === 0 ? 1 : 5} / span 4`,
-                        xl: `${index % 2 === 0 ? 1 : 5} / span 4`,
-                        lg: '1 / span 8'
+                        default: getAlternatingProjectColumn('default', index),
+                        xl: getAlternatingProjectColumn('xl', index),
+                        lg: HOME_GRID_COLUMNS.sectionProjects.stacked.lg
                     }}
                     row={{
-                        default: `${7 + Math.floor(index / 2) * 4 + (index % 2)} / span 4`,
-                        xl: `${7 + Math.floor(index / 2) * 4 + (index % 2)} / span 4`,
-                        lg: `${14 + index * 4} / span 4`
+                        default: `${
+                            HOME_GRID_ROWS.sectionProjects.startRow.default
+                            + Math.floor(index / 2) * 4
+                            + (index % 2)
+                        } / span ${HOME_GRID_ROWS.sectionProjects.rowSpan}`,
+                        xl: `${
+                            HOME_GRID_ROWS.sectionProjects.startRow.xl
+                            + Math.floor(index / 2) * 4
+                            + (index % 2)
+                        } / span ${HOME_GRID_ROWS.sectionProjects.rowSpan}`,
+                        lg: `${
+                            HOME_GRID_ROWS.sectionProjects.startRow.lg + index * 4
+                        } / span ${HOME_GRID_ROWS.sectionProjects.rowSpan}`,
+                        md: `${
+                            HOME_GRID_ROWS.sectionProjects.startRow.md + index * 4
+                        } / span ${HOME_GRID_ROWS.sectionProjects.rowSpan}`
                     }}
                 >
                     <ProjectContainer project={project} />

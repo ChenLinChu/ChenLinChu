@@ -7,6 +7,7 @@ import Resume from '@/components/app/page/Section1/Resume';
 import ToggleTheme from '@/components/app/page/Section1/ToggleTheme';
 import Block from '@/components/shared/Block';
 
+import { HOME_GRID_COLUMNS, HOME_GRID_ROWS } from '../layoutGrid';
 import LocalTime from './LocalTime';
 import SpotifyNowPlaying from './SpotifyNowPlaying';
 
@@ -16,14 +17,10 @@ export default function Section1(): React.ReactNode {
             {/* Profile */}
             <Block
                 column={{
-                    default: '1 / span 3',
-                    xl: '1 / span 3',
-                    lg: '1 / span 8'
+                    ...HOME_GRID_COLUMNS.section1.profile
                 }}
                 row={{
-                    default: '1 / span 3',
-                    xl: '1 / span 3',
-                    lg: '1 / span 3'
+                    ...HOME_GRID_ROWS.section1.profile
                 }}
             >
                 <Profile />
@@ -32,14 +29,10 @@ export default function Section1(): React.ReactNode {
             {/* Local Time */}
             <Block
                 column={{
-                    default: '4 / span 3',
-                    xl: '4 / span 3',
-                    lg: '4 / span 5'
+                    ...HOME_GRID_COLUMNS.section1.localTime
                 }}
                 row={{
-                    default: '1 / span 1',
-                    xl: '1 / span 1',
-                    lg: '4 / span 1'
+                    ...HOME_GRID_ROWS.section1.localTime
                 }}
             >
                 <LocalTime />
@@ -48,14 +41,10 @@ export default function Section1(): React.ReactNode {
             {/* Locale Switch */}
             <Block
                 column={{
-                    default: '7 / span 2',
-                    xl: '7 / span 2',
-                    lg: '1 / span 4'
+                    ...HOME_GRID_COLUMNS.section1.localeSwitch
                 }}
                 row={{
-                    default: '1 / span 1',
-                    xl: '1 / span 1',
-                    lg: '5 / span 1'
+                    ...HOME_GRID_ROWS.section1.localeSwitch
                 }}
             >
                 <LocaleSwitch />
@@ -64,14 +53,10 @@ export default function Section1(): React.ReactNode {
             {/* Map */}
             <Block
                 column={{
-                    default: '4 / span 2',
-                    xl: '4 / span 2',
-                    lg: '5 / span 4'
+                    ...HOME_GRID_COLUMNS.section1.map
                 }}
                 row={{
-                    default: '2 / span 2',
-                    xl: '2 / span 2',
-                    lg: '5 / span 1'
+                    ...HOME_GRID_ROWS.section1.map
                 }}
                 noPadding
             >
@@ -81,14 +66,10 @@ export default function Section1(): React.ReactNode {
             {/* Toggle Theme */}
             <Block
                 column={{
-                    default: '6 / span 2',
-                    xl: '6 / span 2',
-                    lg: '1 / span 3'
+                    ...HOME_GRID_COLUMNS.section1.toggleTheme
                 }}
                 row={{
-                    default: '3 / span 1',
-                    xl: '3 / span 1',
-                    lg: '4 / span 1'
+                    ...HOME_GRID_ROWS.section1.toggleTheme
                 }}
             >
                 <ToggleTheme />
@@ -97,14 +78,10 @@ export default function Section1(): React.ReactNode {
             {/* Spotify Now Playing */}
             <Block
                 column={{
-                    default: '6 / span 3',
-                    xl: '6 / span 3',
-                    lg: '1 / span 8'
+                    ...HOME_GRID_COLUMNS.section1.spotify
                 }}
                 row={{
-                    default: '2 / span 1',
-                    xl: '2 / span 1',
-                    lg: '6 / span 1'
+                    ...HOME_GRID_ROWS.section1.spotify
                 }}
             >
                 <SpotifyNowPlaying />
@@ -113,14 +90,10 @@ export default function Section1(): React.ReactNode {
             {/* Resume */}
             <Block
                 column={{
-                    default: '8 / span 1',
-                    xl: '8 / span 1',
-                    lg: '1 / span 2'
+                    ...HOME_GRID_COLUMNS.section1.resume
                 }}
                 row={{
-                    default: '3 / span 1',
-                    xl: '3 / span 1',
-                    lg: '7 / span 1'
+                    ...HOME_GRID_ROWS.section1.resume
                 }}
             >
                 <Resume />

@@ -85,7 +85,8 @@
                 "projects": {
                     "buildAt": "Build At {company}",
                     "externalLinkAriaLabel": "Visit {title} external link",
-                    "externalLinkIconAlt": "External link icon"
+                    "externalLinkIconAlt": "External link icon",
+                    "technologies": "Technologies"
                 },
                 "socialLinks": {
                     "linkedIn": "Visit LinkedIn profile",
@@ -97,6 +98,9 @@
         "skills": {
             "terminalPrompt": "$ cd ~/skills && ls -la",
             "terminalPromptShort": "$ cd ~/skills && ls",
+            "pageTitle": "Skills & Tools",
+            "pageSubtitle": "Core capabilities focused on product engineering and user experience.",
+            "footerHint": "Tap any skill to view related projects.",
             "blockTitle": {
                 "frameworks": "Frameworks",
                 "stateManagement": "State Management",
@@ -113,8 +117,14 @@
         "projects/[tag]": {
             "title": "This page uses the following technologies"
         },
+        "projectDetail": {
+            "backToProjects": "Back to Projects",
+            "viewLive": "View Live"
+        },
         "experience": {
             "terminalPrompt": "$ git log career --oneline",
+            "pageTitle": "Experience",
+            "pageSubtitle": "Highlights in cross-functional collaboration and frontend delivery.",
             "positions": {
                 "senior_frontend": "Senior Front-End Engineer",
                 "rd_team_leader": "R&D Team Leader",

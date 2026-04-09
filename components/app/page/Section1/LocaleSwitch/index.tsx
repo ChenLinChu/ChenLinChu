@@ -19,6 +19,7 @@ export default async function LocaleSwitch(): Promise<React.ReactNode> {
                 <Link
                     href="/"
                     locale='en'
+                    lang='en'
                     className={`
                         ${Styles.locale__link}
                         ${locale === 'en' ? Styles.active : ''}
@@ -30,6 +31,7 @@ export default async function LocaleSwitch(): Promise<React.ReactNode> {
                 <Link
                     href="/"
                     locale='zh-TW'
+                    lang='zh-Hant'
                     className={`
                         ${Styles.locale__link}
                         ${locale === 'zh-TW' ? Styles.active : ''}

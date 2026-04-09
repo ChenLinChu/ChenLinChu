@@ -85,7 +85,8 @@
                 "projects": {
                     "buildAt": "開發於 {company}",
                     "externalLinkAriaLabel": "前往 {title} 外部連結",
-                    "externalLinkIconAlt": "外部連結圖示"
+                    "externalLinkIconAlt": "外部連結圖示",
+                    "technologies": "技術棧"
                 },
                 "socialLinks": {
                     "linkedIn": "前往 LinkedIn 個人檔案",
@@ -97,6 +98,9 @@
         "skills": {
             "terminalPrompt": "$ cd ~/skills && ls -la",
             "terminalPromptShort": "$ cd ~/skills && ls",
+            "pageTitle": "技能與工具",
+            "pageSubtitle": "聚焦於產品開發、前端工程與體驗優化的核心能力。",
+            "footerHint": "點擊任一技能可查看相關專案。",
             "blockTitle": {
                 "frameworks": "框架",
                 "stateManagement": "狀態管理",
@@ -113,8 +117,14 @@
         "projects/[tag]": {
             "title": "此頁面使用到技術"
         },
+        "projectDetail": {
+            "backToProjects": "返回專案列表",
+            "viewLive": "查看線上版本"
+        },
         "experience": {
             "terminalPrompt": "$ git log career --oneline",
+            "pageTitle": "工作經歷",
+            "pageSubtitle": "聚焦跨團隊協作、前端架構與產品交付成果。",
             "positions": {
                 "senior_frontend": "資深前端工程師",
                 "rd_team_leader": "研發組組長",

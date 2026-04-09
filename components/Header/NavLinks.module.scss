@@ -1,16 +1,38 @@
 .nav__button {
     position: relative;
     z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 150px;
+    min-height: 40px;
     padding: 10px 0;
-    color: var(--color-text);
-    font-size: 1rem;
+    color: var(--nav-link-color);
+    font-size: var(--type-fs-caption);
+    font-weight: var(--type-w-regular);
     text-align: center;
     text-decoration: none;
+    line-height: 1;
+    translate: 0 var(--type-optical-shift);
+    letter-spacing: var(--type-tracking-label);
+    transition: color var(--motion-fast), opacity var(--motion-fast);
     cursor: pointer;
 
     @media (max-width: 1199.99px) {
         width: 15vw;
+    }
+
+    @media (max-width: 767.99px) {
+        min-height: var(--touch-target-min);
+    }
+
+    &:hover {
+        color: var(--nav-link-color-active);
+    }
+
+    &[aria-current='page'] {
+        color: var(--nav-link-color-active);
+        font-weight: var(--type-w-medium);
     }
 }
 

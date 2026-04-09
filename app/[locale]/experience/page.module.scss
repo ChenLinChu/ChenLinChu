@@ -1,179 +1,110 @@
 .wrapper {
-    max-width: 800px;
+    max-width: 980px;
     margin: 0 auto;
     padding: 2rem 1rem 4rem;
 }
 
-.terminal {
-    overflow: hidden;
-    font-family: "Fira Code", "JetBrains Mono", Monaco, Consolas, monospace;
-    font-size: 0.85rem;
-    line-height: 1.6;
-    background-color: var(--console-bg);
-    border: 1px solid var(--terminal-border);
+.showcase {
+    padding: 4px 0 0;
+}
+
+.hero {
+    margin-bottom: 18px;
+}
+
+.heroTitle {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--type-fs-hero);
+    font-weight: var(--type-w-semibold);
+    line-height: var(--type-lh-tight);
+    letter-spacing: var(--type-tracking-display);
+}
+
+.heroSubtitle {
+    margin: 10px 0 0;
+    color: var(--block-title);
+    font-size: var(--type-fs-body-lg);
+    line-height: var(--type-lh-body);
+    letter-spacing: var(--type-tracking-body);
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.timelineCard {
+    padding: 16px;
+    background: linear-gradient(160deg, var(--glass-highlight), transparent 52%), var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
     border-radius: 10px;
-    box-shadow: 0 4px 24px var(--terminal-shadow);
 }
 
-.terminalHeader {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    padding: 10px 14px;
-    background-color: var(--console-header-bg);
-    border-bottom: 1px solid var(--terminal-header-border);
-}
-
-.terminalDot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-
-    &:nth-child(1) {
-        background-color: #ff5f57;
-    }
-
-    &:nth-child(2) {
-        background-color: #febc2e;
-    }
-
-    &:nth-child(3) {
-        background-color: #28c840;
-    }
-}
-
-.terminalTitle {
-    margin-left: 8px;
-    color: var(--terminal-muted);
-    font-size: 0.75rem;
-}
-
-.terminalContent {
-    padding: 16px 18px 20px;
-    overflow-x: auto;
-}
-
-.promptLine {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.prompt {
-    color: var(--terminal-prompt);
-    font-weight: 500;
-}
-
-.cursor {
-    color: var(--terminal-text);
-    animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-}
-
-.logOutput {
-    margin-bottom: 16px;
-}
-
-.commitBlock {
-    margin-bottom: 1.5rem;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--terminal-header-border);
-
-    &:last-of-type {
-        margin-bottom: 0;
-        border-bottom: none;
-    }
-}
-
-.commitHeader {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 12px;
-    align-items: baseline;
+.timelineHead {
     margin-bottom: 10px;
 }
 
-.commitHash {
-    flex-shrink: 0;
-    color: var(--terminal-hash);
-    font-size: 0.8rem;
-}
-
-.commitMessage {
-    color: var(--console-tab-text);
-    font-weight: 500;
-}
-
-.commitDate {
-    flex-shrink: 0;
-    margin-left: auto;
-    color: var(--terminal-muted);
-    font-size: 0.8rem;
-}
-
-.commitBody {
-    padding-left: 1.5em;
-    color: var(--terminal-muted);
-    font-size: 0.82rem;
-    line-height: 1.65;
-}
-
-.commitSection {
-    margin-bottom: 0.75rem;
-
-    &:last-child {
-        margin-bottom: 0;
-    }
-}
-
-.commitSectionTitle {
-    margin-bottom: 0.35rem;
-    color: var(--console-log-comment);
-    font-size: 0.83rem;
-    font-weight: 500;
-}
-
-.commitList {
+.role {
     margin: 0;
-    padding-left: 1.2rem;
-    list-style: disc;
+    font-size: var(--type-fs-title-lg);
+    font-weight: var(--type-w-semibold);
+    line-height: var(--type-lh-tight);
+    letter-spacing: var(--type-tracking-display);
+}
 
-    li {
-        margin-bottom: 0.3rem;
+.company {
+    margin: 4px 0 0;
+    color: var(--block-title);
+    font-size: var(--type-fs-body);
+    line-height: var(--type-lh-body);
+    letter-spacing: var(--type-tracking-body);
+}
 
-        &:last-child {
-            margin-bottom: 0;
-        }
+.date {
+    margin: 4px 0 0;
+    color: var(--block-title);
+    font-size: var(--type-fs-caption);
+    letter-spacing: var(--type-tracking-label);
+}
+
+.timelineBody {
+    display: grid;
+    gap: 10px;
+}
+
+.section {
+    margin: 0;
+}
+
+.sectionTitle {
+    margin: 0 0 6px;
+    color: var(--interactive-link);
+    font-size: var(--type-fs-body);
+    font-weight: var(--type-w-semibold);
+    letter-spacing: var(--type-tracking-body);
+}
+
+.sectionList {
+    display: grid;
+    gap: 4px;
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--color-text);
+    font-size: var(--type-fs-body);
+    line-height: var(--type-lh-relaxed);
+    letter-spacing: var(--type-tracking-body);
+}
+
+@media (max-width: 767.99px) {
+    .showcase {
+        padding: 0;
     }
 }
 
 @media (max-width: 575.99px) {
     .wrapper {
         padding: 1rem 0.75rem 3rem;
-    }
-
-    .terminalContent {
-        padding: 12px 14px 16px;
-    }
-
-    .commitHeader {
-        flex-direction: column;
-        gap: 4px;
-        align-items: flex-start;
-    }
-
-    .commitDate {
-        margin-left: 0;
-    }
-
-    .commitBody {
-        padding-left: 1em;
-        font-size: 0.8rem;
     }
 }

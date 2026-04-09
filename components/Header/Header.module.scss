@@ -1,17 +1,35 @@
 .header {
     display: flex;
     justify-content: center;
-    padding: 100px 0 80px;
+    padding: 52px 0 72px;
 }
 
 .nav {
-    position: relative;
+    --nav-link-color: rgb(255 255 255 / 92%);
+    --nav-link-color-active: #fff;
+    --nav-border-color: rgb(255 255 255 / 12%);
+
+    position: sticky;
+    top: 16px;
+    z-index: 20;
     display: flex;
     gap: 10px;
     align-items: center;
     justify-content: center;
-    padding: 5px;
-    background-color: var(--block-bg);
-    border: 1px solid hsl(0deg 0% 100% / 10%);
-    border-radius: 40px;
+    padding: 6px;
+    background: rgb(0 0 0 / 80%);
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 999px;
+    backdrop-filter: saturate(180%) blur(20px);
+    box-shadow: var(--elev-nav), inset 0 1px 0 rgb(255 255 255 / 12%);
+}
+
+[data-theme='light'] .nav {
+    --nav-link-color: rgb(0 0 0 / 70%);
+    --nav-link-color-active: rgb(0 0 0 / 88%);
+    --nav-border-color: rgb(0 0 0 / 10%);
+
+    background: rgb(255 255 255 / 72%);
+    border-color: var(--nav-border-color);
+    box-shadow: var(--elev-nav), inset 0 1px 0 rgb(255 255 255 / 56%);
 }

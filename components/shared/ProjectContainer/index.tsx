@@ -11,34 +11,34 @@ export default async function ProjectContainer(
     { project }: { project: Project }
 ): Promise<React.ReactNode> {
     const t = await getTranslations('main.page.block.projects');
-    const isMobile = project.device === 'mobile';
+    const device = project.device ?? 'desktop';
+    const isMobileLike = device === 'mobile';
+    const isTablet = device === 'tablet';
+    const coverLinkClassName = [
+        Styles.coverLink,
+        isMobileLike ? Styles.coverLinkMobile : '',
+        isTablet ? Styles.coverLinkTablet : ''
+    ].filter(Boolean).join(' ');
 
     return (
         <div className={Styles.container}>
-            <div className={Styles.browserFrame}>
-                <div className={Styles.browserHeader}>
-                    <div className={Styles.trafficLights}>
-                        <span className={Styles.trafficLight} />
-                        <span className={Styles.trafficLight} />
-                        <span className={Styles.trafficLight} />
-                    </div>
-                    <span className={Styles.browserTitle}>
-                        {project.seo_slug}
-                    </span>
+            <article className={Styles.cardFrame}>
+                <div className={Styles.cardHeader}>
+                    <span className={Styles.cardTitle}>{project.title}</span>
                 </div>
                 <Link
-                    className={Styles.coverLink}
+                    className={coverLinkClassName}
                     href={`/project/${project.seo_slug}`}
                 >
-                    {isMobile ? (
+                    {isMobileLike ? (
                         <div className={Styles.deviceFrame}>
                             <div className={Styles.browserContent}>
                                 <Image
                                     className={Styles.cover}
                                     src={project.cover_image_url}
                                     alt={project.title}
-                                    width={1920}
-                                    height={540}
+                                    fill
+                                    sizes="(max-width: 767px) 78vw, (max-width: 1199px) 48vw, 420px"
                                 />
                             </div>
                         </div>
@@ -48,71 +48,47 @@ export default async function ProjectContainer(
                                 className={Styles.cover}
                                 src={project.cover_image_url}
                                 alt={project.title}
-                                width={1920}
-                                height={540}
+                                fill
+                                sizes="(max-width: 767px) 92vw, (max-width: 1199px) 48vw, 560px"
                             />
                         </div>
                     )}
                 </Link>
-                <div className={Styles.consolePanel}>
-                    <div className={Styles.consoleHeader}>
-                        <span className={Styles.consoleTab}>Elements</span>
-                        <span className={`${Styles.consoleTab} ${Styles.consoleTabActive}`}>
-                            Console
-                        </span>
-                        <span className={Styles.consoleTab}>Network</span>
-                    </div>
-                    <div className={Styles.consoleContent}>
-                        <div className={Styles.consoleLog}>
-                            <span className={Styles.logInfo}>›</span>
-                            <Link
-                                className={Styles.titleLink}
-                                href={`/project/${project.seo_slug}`}
-                            >
-                                <span className={Styles.title}>{project.title}</span>
-                            </Link>
-                        </div>
-                        <div className={Styles.consoleLog}>
-                            <span className={Styles.logInfoPlaceholder}>›</span>
-                            <span className={Styles.subtitle}>{project.subtitle}</span>
-                        </div>
-                        <div className={Styles.consoleLog}>
-                            <span className={Styles.logInfo}>›</span>
-                            <span className={Styles.tagsLabel}>tags:</span>
-                            <div className={Styles.tags}>
-                                {project.tags.slice(0, 4).map((skillTag, tagIndex) => (
-                                    <Link
-                                        className={Styles.tag}
-                                        href={`/projects/${skillTag}`}
-                                        key={tagIndex}
-                                    >
-                                        [{skillTag}]
-                                    </Link>
-                                ))}
-                                {project.tags.length > 4 && (
-                                    <span className={Styles.moreDesktop}>
-                                        +{project.tags.length - 4}
-                                    </span>
-                                )}
-                                {project.tags.length > 3 && (
-                                    <span className={Styles.moreMobile}>
-                                        +{project.tags.length - 3}
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                        <div className={Styles.consoleLog}>
-                            <span className={Styles.logInfoPlaceholder}>›</span>
-                            <span className={Styles.buildAt}>
-                                {t('buildAt', {
-                                    company: project.build_at
-                                })}
-                            </span>
-                        </div>
-                        <div className={Styles.consoleInput}>
-                            <span className={Styles.logInfo}>›</span>
+                <div className={Styles.cardBody}>
+                    <Link
+                        className={Styles.titleLink}
+                        href={`/project/${project.seo_slug}`}
+                    >
+                        <h3 className={Styles.title}>{project.title}</h3>
+                    </Link>
+                    <p className={Styles.subtitle}>{project.subtitle}</p>
+                    <div className={Styles.tagsRow}>
+                        <span className={Styles.tagsLabel}>{t('technologies')}</span>
+                        <div className={Styles.tags}>
+                            {project.tags.slice(0, 4).map((skillTag, tagIndex) => (
+                                <Link
+                                    className={Styles.tag}
+                                    href={`/projects/${skillTag}`}
+                                    key={tagIndex}
+                                >
+                                    {skillTag}
+                                </Link>
+                            ))}
+                            {project.tags.length > 4 && (
+                                <span className={Styles.moreDesktop}>
+                                    +{project.tags.length - 4}
+                                </span>
+                            )}
+                            {project.tags.length > 3 && (
+                                <span className={Styles.moreMobile}>
+                                    +{project.tags.length - 3}
+                                </span>
+                            )}
                         </div>
                     </div>
+                    <p className={Styles.buildAt}>
+                        {t('buildAt', { company: project.build_at })}
+                    </p>
                     {project.external_link && (
                         <Link
                             className={Styles.externalLink}
@@ -133,7 +109,7 @@ export default async function ProjectContainer(
                         </Link>
                     )}
                 </div>
-            </div>
+            </article>
         </div>
     );
 }

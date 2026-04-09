@@ -19,16 +19,6 @@ const getProject = cache(async (slug: string, locale: string) =>
     getProjectBySlugAndLanguage(slug, locale)
 );
 
-const getContrastColor = (brandColor: string): string => {
-    const r = parseInt(brandColor.slice(1, 3), 16);
-    const g = parseInt(brandColor.slice(3, 5), 16);
-    const b = parseInt(brandColor.slice(5, 7), 16);
-
-    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-    return luminance > 0.5 ? '#000' : '#fff';
-};
-
 export async function generateMetadata(
     { params }: { params: Promise<{ locale: string; slug: string }> }
 ): Promise<Metadata | undefined> {
@@ -67,6 +57,7 @@ export default async function Project(
     const projectUrl = `${baseUrl}/${locale}/project/${slug}`;
 
     const t = await getTranslations('metadata.breadcrumb');
+    const tProject = await getTranslations('main.projectDetail');
     const breadcrumbSchema = createBreadcrumbSchema(locale, [
         { name: t('home'), path: '/' },
         { name: t('projects'), path: '/projects' },
@@ -90,32 +81,34 @@ export default async function Project(
         keywords: project.seo_keywords.join(', ')
     };
 
-    const isMobile = project.device === 'mobile';
-
+    const device = project.device ?? 'desktop';
+    const isMobileLike = device === 'mobile';
+    const isTablet = device === 'tablet';
+    const coverWrapperClassName = [
+        styles.coverWrapper,
+        isMobileLike ? styles.coverWrapperMobile : '',
+        isTablet ? styles.coverWrapperTablet : ''
+    ].filter(Boolean).join(' ');
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <div className={styles.browserFrame}>
-                    <div className={styles.browserHeader}>
-                        <div className={styles.trafficLights}>
-                            <span className={styles.trafficLight} />
-                            <span className={styles.trafficLight} />
-                            <span className={styles.trafficLight} />
-                        </div>
-                        <span className={styles.browserTitle}>
-                            {project.seo_slug}
-                        </span>
+                <div className={styles.previewFrame}>
+                    <div className={styles.previewHeader}>
+                        <span className={styles.previewTitle}>{project.title}</span>
                     </div>
-                    <div className={styles.coverWrapper}>
-                        {isMobile ? (
+                    <div className={coverWrapperClassName}>
+                        {isMobileLike ? (
                             <div className={styles.deviceFrame}>
                                 <div className={styles.browserContent}>
                                     <Image
                                         className={styles.cover}
                                         src={project.cover_image_url}
                                         alt={project.title}
-                                        width={1920}
-                                        height={540}
+                                        fill
+                                        sizes={
+                                            '(max-width: 767px) 76vw, '
+                                            + '(max-width: 1199px) 48vw, 420px'
+                                        }
                                         priority
                                     />
                                 </div>
@@ -126,8 +119,8 @@ export default async function Project(
                                     className={styles.cover}
                                     src={project.cover_image_url}
                                     alt={project.title}
-                                    width={1920}
-                                    height={540}
+                                    fill
+                                    sizes="(max-width: 767px) 92vw, (max-width: 1199px) 72vw, 800px"
                                     priority
                                 />
                             </div>
@@ -143,6 +136,24 @@ export default async function Project(
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
                 />
                 <div className={styles.contentCard}>
+                    <div className={styles.actions}>
+                        <Link
+                            className={styles.secondaryAction}
+                            href="/projects"
+                        >
+                            {tProject('backToProjects')}
+                        </Link>
+                        {project.external_link && (
+                            <Link
+                                className={styles.primaryAction}
+                                href={project.external_link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {tProject('viewLive')}
+                            </Link>
+                        )}
+                    </div>
                     <h1 className={styles.title}>{project.title}</h1>
                     <p className={styles.subtitle}>{project.subtitle}</p>
                     <div className={styles.skills}>
@@ -151,10 +162,6 @@ export default async function Project(
                                 className={styles.skillLink}
                                 key={index}
                                 href={`/projects/${skill.fileName}`}
-                                style={{
-                                    '--brand-color': skill.brandColor,
-                                    '--contrast-color': getContrastColor(skill.brandColor)
-                                } as React.CSSProperties}
                             >
                                 <Image
                                     className={styles.skillIcon}

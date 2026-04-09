@@ -25,17 +25,6 @@ export async function generateMetadata(
     });
 }
 
-function formatLsDate(): string {
-    const d = new Date();
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const mon = months[d.getMonth()];
-    const day = d.getDate().toString().padStart(2, ' ');
-    const h = d.getHours().toString().padStart(2, '0');
-    const m = d.getMinutes().toString().padStart(2, '0');
-    return `${mon} ${day} ${h}:${m}`;
-}
-
 export default async function SkillsPage(
     { params }: { params: Promise<{ locale: string }> }
 ): Promise<React.ReactElement> {
@@ -47,161 +36,58 @@ export default async function SkillsPage(
         { name: tBreadcrumb('skills'), path: '/skills' }
     ]);
 
-    const lsDate = formatLsDate();
-    const totalBlocks = skillsData.length + 2;
-
     return (
         <main className={Styles.container}>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
-            <div className={Styles.terminal}>
-                <div className={Styles.terminalHeader}>
-                    <span className={Styles.terminalDot} />
-                    <span className={Styles.terminalDot} />
-                    <span className={Styles.terminalDot} />
-                    <span className={Styles.terminalTitle}>skills</span>
+            <section className={Styles.showcase}>
+                <div className={Styles.hero}>
+                    <h1 className={Styles.heroTitle}>{t('pageTitle')}</h1>
+                    <p className={Styles.heroSubtitle}>{t('pageSubtitle')}</p>
                 </div>
-                <div className={Styles.terminalContent}>
-                    <div className={Styles.promptLine}>
-                        <span className={Styles.prompt}>
-                            <span className={Styles.promptDesktop}>
-                                {t('terminalPrompt')}
-                            </span>
-                            <span className={Styles.promptMobile}>
-                                {t('terminalPromptShort')}
-                            </span>
-                        </span>
-                    </div>
-                    <div
-                        className={
-                            `${Styles.lsOutput} ${Styles.lsOutputRoot} ${Styles.lsOutputCompact}`
-                        }
-                    >
-                        <div className={Styles.lsLine}>
-                            <span className={Styles.lsTotal}>total {totalBlocks}</span>
-                        </div>
-                        <div className={Styles.lsLine}>
-                            <span className={Styles.lsPerms}>drwxr-xr-x</span>
-                            <span className={Styles.lsMeta}>  2 chenlinchu staff</span>
-                            <span className={Styles.lsSize}> 384</span>
-                            <span className={Styles.lsDate}>{lsDate}</span>
-                            <span className={Styles.lsName}>.</span>
-                        </div>
-                        <div className={Styles.lsLine}>
-                            <span className={Styles.lsPerms}>drwxr-xr-x</span>
-                            <span className={Styles.lsMeta}>  5 chenlinchu staff</span>
-                            <span className={Styles.lsSize}> 160</span>
-                            <span className={Styles.lsDate}>{lsDate}</span>
-                            <span className={Styles.lsName}>..</span>
-                        </div>
-                        {skillsData.map((block) => {
-                            const folderName = t(block.title);
-                            const folderId = `folder-${block.title.replace('blockTitle.', '')}`;
-                            return (
-                                <React.Fragment key={block.title}>
-                                    <div className={Styles.lsLine}>
-                                        <span className={Styles.lsPerms}>drwxr-xr-x</span>
-                                        <span className={Styles.lsMeta}>  2 chenlinchu staff</span>
-                                        <span className={Styles.lsSize}>  64</span>
-                                        <span className={Styles.lsDate}>{lsDate}</span>
-                                        <a
-                                            className={Styles.lsDirName}
-                                            href={`#${folderId}`}
+                <div className={Styles.groups}>
+                    {skillsData.map((block) => (
+                        <section
+                            className={Styles.groupCard}
+                            key={block.title}
+                        >
+                            <h2 className={Styles.groupTitle}>
+                                {t(block.title)}
+                            </h2>
+                            <div className={Styles.skillChips}>
+                                {block.skills.map((skill) => {
+                                    const iconClassName = [
+                                        Styles.skillChipIcon,
+                                        skill.isBlackIcon ? Styles.skillChipIconWhite : ''
+                                    ].filter(Boolean).join(' ');
+
+                                    return (
+                                        <Link
+                                            className={Styles.skillChip}
+                                            href={`/projects/${skill.fileName}`}
+                                            key={skill.fileName}
                                         >
-                                            {folderName}
-                                        </a>
-                                    </div>
-                                </React.Fragment>
-                            );
-                        })}
-                    </div>
-                    {skillsData.map((block) => {
-                        const folderName = t(block.title);
-                        const folderId = `folder-${block.title.replace('blockTitle.', '')}`;
-                        const cdPath = folderName.includes(' ')
-                            ? `"${folderName}"`
-                            : folderName;
-                        return (
-                            <div
-                                className={Styles.folderBlock}
-                                id={folderId}
-                                key={block.title}
-                            >
-                                <div className={Styles.promptLine}>
-                                    <span className={Styles.prompt}>
-                                        $ cd {cdPath} &&{' '}
-                                        <span className={Styles.promptDesktop}>
-                                            ls -la
-                                        </span>
-                                        <span className={Styles.promptMobile}>
-                                            ls
-                                        </span>
-                                    </span>
-                                </div>
-                                <div className={`${Styles.lsOutput} ${Styles.lsOutputCompact}`}>
-                                    <div className={Styles.lsLine}>
-                                        <span className={Styles.lsTotal}>
-                                            total {block.skills.length}
-                                        </span>
-                                    </div>
-                                    <div className={Styles.lsLine}>
-                                        <span className={Styles.lsPerms}>drwxr-xr-x</span>
-                                        <span className={Styles.lsMeta}>  2 chenlinchu staff</span>
-                                        <span className={Styles.lsSize}>  64</span>
-                                        <span className={Styles.lsDate}>{lsDate}</span>
-                                        <span className={Styles.lsName}>.</span>
-                                    </div>
-                                    <div className={Styles.lsLine}>
-                                        <span className={Styles.lsPerms}>drwxr-xr-x</span>
-                                        <span className={Styles.lsMeta}>  5 chenlinchu staff</span>
-                                        <span className={Styles.lsSize}> 160</span>
-                                        <span className={Styles.lsDate}>{lsDate}</span>
-                                        <span className={Styles.lsName}>..</span>
-                                    </div>
-                                    {block.skills.map((skill) => {
-                                        const w = skill.isBlackIcon ? Styles.skillIconWhite : '';
-                                        const iconCls =
-                                            [Styles.skillIcon, w].filter(Boolean).join(' ');
-                                        const projectHref = `/projects/${skill.fileName}`;
-                                        return (
-                                            <div
-                                                className={Styles.lsLine}
-                                                key={skill.fileName}
-                                            >
-                                                <span className={Styles.lsPerms}>-rw-r--r--</span>
-                                                <span className={Styles.lsMeta}>
-                                                    {'  1 chenlinchu staff'}
-                                                </span>
-                                                <span className={Styles.lsSize}> 128</span>
-                                                <span className={Styles.lsDate}>{lsDate}</span>
-                                                <Link
-                                                    className={Styles.lsFileLink}
-                                                    href={projectHref}
-                                                >
-                                                    <Image
-                                                        className={iconCls}
-                                                        src={`/icons/${skill.fileName}.svg`}
-                                                        alt={skill.fileName}
-                                                        width={16}
-                                                        height={16}
-                                                    />
-                                                    {skill.fileName}
-                                                </Link>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                                            <Image
+                                                className={iconClassName}
+                                                src={`/icons/${skill.fileName}.svg`}
+                                                alt={skill.fileName}
+                                                width={18}
+                                                height={18}
+                                            />
+                                            {skill.fileName}
+                                        </Link>
+                                    );
+                                })}
                             </div>
-                        );
-                    })}
-                    <div className={Styles.promptLine}>
-                        <span className={Styles.prompt}>$</span>
-                        <span className={Styles.cursor}>_</span>
-                    </div>
+                        </section>
+                    ))}
                 </div>
-            </div>
+                <div className={Styles.footerHint}>
+                    {t('footerHint')}
+                </div>
+            </section>
         </main>
     );
 }

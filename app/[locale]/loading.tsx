@@ -17,9 +17,12 @@ export default function Loading(): React.ReactElement {
                     style={{
                         width: '32px',
                         height: '32px',
-                        border: '3px solid var(--header-nav-button-bg)',
-                        borderTopColor: 'var(--color-text)',
+                        background: 'var(--glass-bg)',
+                        border: '3px solid var(--glass-border)',
+                        borderTopColor: 'var(--interactive-accent)',
                         borderRadius: '50%',
+                        boxShadow: 'var(--card-shadow)',
+                        backdropFilter: 'saturate(180%) blur(10px)',
                         animation: 'spin 0.8s linear infinite'
                     }}
                 />

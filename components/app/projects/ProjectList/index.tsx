@@ -10,22 +10,11 @@ import type { Project } from '@/types/project';
 
 import Styles from './index.module.scss';
 
-const getContrastColor = (brandColor: string): string => {
-    const r = parseInt(brandColor.slice(1, 3), 16);
-    const g = parseInt(brandColor.slice(3, 5), 16);
-    const b = parseInt(brandColor.slice(5, 7), 16);
-
-    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-    return luminance > 0.5 ? '#000' : '#fff';
-};
-
 export default async function ProjectList(
     { projects }: { projects: Project[] }
 ): Promise<React.ReactNode> {
     const allTags = Array.from(new Set(projects?.flatMap(project => project.tags) ?? []));
     const skillsData = getSkills(allTags);
-    const skillsDataDuplicated = [...skillsData, ...skillsData];
     const t = await getTranslations('main');
 
     if (!projects) notFound();
@@ -44,25 +33,40 @@ export default async function ProjectList(
                 <div className={Styles.titleContainer}>
                     <h1 className={Styles.title}>{t('projects/[tag].title')}</h1>
 
-                    <div
-                        className={Styles.skills}
-                        style={{
-                            '--skills-count': skillsDataDuplicated.length
-                        } as React.CSSProperties}
-                    >
-                        {skillsDataDuplicated.map((skill, index) => (
-                            <Link
-                                className={Styles.skillLink}
-                                key={index}
-                                href={`/projects/${skill.fileName}`}
-                                style={{
-                                    '--brand-color': skill.brandColor,
-                                    '--contrast-color': getContrastColor(skill.brandColor)
-                                } as React.CSSProperties}
+                    <div className={Styles.skillsViewport}>
+                        <div
+                            className={Styles.skillsTrack}
+                            style={{
+                                '--skills-count': skillsData.length
+                            } as React.CSSProperties}
+                        >
+                            <div className={Styles.skillsGroup}>
+                                {skillsData.map((skill) => (
+                                    <Link
+                                        className={Styles.skillLink}
+                                        key={`primary-${skill.fileName}`}
+                                        href={`/projects/${skill.fileName}`}
+                                    >
+                                        {skill.fileName}
+                                    </Link>
+                                ))}
+                            </div>
+                            <div
+                                className={Styles.skillsGroup}
+                                aria-hidden="true"
                             >
-                                {skill.fileName}
-                            </Link>
-                        ))}
+                                {skillsData.map((skill) => (
+                                    <Link
+                                        className={Styles.skillLink}
+                                        key={`duplicate-${skill.fileName}`}
+                                        href={`/projects/${skill.fileName}`}
+                                        tabIndex={-1}
+                                    >
+                                        {skill.fileName}
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Block>
